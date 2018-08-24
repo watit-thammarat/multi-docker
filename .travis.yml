@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t tongnakub/react-test -f ./client/dev.Dockerfile ./client
+
+script:
+  - docker run tongnakub/react-test npm run test -- --coverage
+
+after_success:
+  - docker build -t tongnakub/multi-client ./client
+  - docker build -t tongnakub/multi-server ./server
+  - docker build -t tongnakub/multi-worker ./worker
+  - docker build -t tongnakub/multi-nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push tongnakub/multi-client
+  - docker push tongnakub/multi-server
+  - docker push tongnakub/multi-workder
+  - docker push tongnakub/multi-nginx
