@@ -18,3 +18,16 @@ after_success:
   - docker push tongnakub/multi-server
   - docker push tongnakub/multi-worker
   - docker push tongnakub/multi-nginx
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: 'ap-southeast-1'
+#   app: 'multi-docker'
+#   env: 'MultiDocker-env',
+#   bucket_name: 'elasticbeanstalk-ap-southeast-1-306476627547'
+#   bucket_path: 'multi-docker'
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: '$AWS_SECRET_KEY'
